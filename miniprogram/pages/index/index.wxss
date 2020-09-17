@@ -19,3 +19,8 @@
 .usermotto {
   margin-top: 200px;
 }
+
+/* #myCanvas {
+  height: 100px;
+  width: 100vw;
+} */
