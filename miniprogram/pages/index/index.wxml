@@ -1,18 +1,13 @@
 <!--index.wxml-->
 <view class="container">
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
+
   <button bindtap="loadImage">load image</button>
-  <view>
-    <canvas canvas-id="myCanvas" id="myCanvas" style = "width:{{windowWidth}}px;height:{{windowHeight}}"/>
-    <!-- <image style = "width:{{windowWidth}}px;height:800" src="{{rtn}}" mode="cover"></image> -->
+
+  <canvas canvas-id="myCanvas" id="myCanvas" style = "width:{{basicInfo.width}}px;height:{{basicInfo.height}}px" disable-scroll="true" />
+
+   <!-- <image style = "width:{{windowWidth}}px; height: {{windowHeight}}px" src="{{imgSrc}}" mode="cover"></image> -->
+
+ 
+  <image style = "width:1020px; height: 675px" src="{{imgSrc}}" mode="cover"></image>
+
   </view>
-</view>
