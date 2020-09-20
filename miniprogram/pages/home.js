@@ -1,6 +1,4 @@
-// miniprogram/pages/home/home.js
-import {chooseImg} from '../../utils/common.js';
-
+// pages/home.js
 Page({
 
   /**
@@ -10,23 +8,11 @@ Page({
 
   },
 
-  onClick: function (e) {
-    console.log(e.target.dataset);
-    chooseImg({
-      sourceType: [e.target.dataset.type],
-      success: templatePaths => {
-        wx.navigateTo({
-          url: '../detect/detect?img=' + templatePaths[0]
-        });
-      }
-    })
-  },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('load');
+
   },
 
   /**

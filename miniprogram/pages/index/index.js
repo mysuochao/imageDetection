@@ -9,9 +9,6 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     image: '',
-    basicInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   loadImage: function() {
     wx.chooseImage({

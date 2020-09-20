@@ -1,6 +1,17 @@
 <!--miniprogram/pages/home/home.wxml-->
-<view>
+<view class="home-container">
 <!-- <text>miniprogram/pages/home/home.wxml</text> -->
-<my-icon icon="add" color="black" size="{{25}}"></my-icon>
+<image
+  src="../../images/camera.svg"
+  mode="aspectFit"
+  data-type="camera"
+  bindtap="onClick"
+/>
+<image
+  src="../../images/picture.svg"
+  mode="aspectFit"
+  data-type="album"
+  bindtap="onClick"
+/>
 </view>
 

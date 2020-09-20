@@ -1,2 +1,9 @@
-<!--miniprogram/pages/detect/detect.wxml-->
-<text>miniprogram/pages/detect/detect.wxml</text>
+<!--index.wxml-->
+<view class="container">
+
+
+  <canvas canvas-id="myCanvas" id="myCanvas" style = "width:{{basicInfo.width}}px;height:{{basicInfo.height}}px" disable-scroll="true" />
+
+  <image style = "width:1020px; height: 675px" src="{{imgSrc}}" mode="cover"></image>
+
+  </view>
