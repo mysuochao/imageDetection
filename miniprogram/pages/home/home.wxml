@@ -1,0 +1,6 @@
+<!--miniprogram/pages/home/home.wxml-->
+<view>
+<!-- <text>miniprogram/pages/home/home.wxml</text> -->
+<my-icon icon="add" color="black" size="{{25}}"></my-icon>
+</view>
+
