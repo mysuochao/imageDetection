@@ -13,12 +13,19 @@ Page({
     coordinate: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(options)
+  previewImg: function() {
+    const src = this.data.resultImgSrc || this.data.originImgSrc
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  },
+
+  detect: function() {
     //获取屏幕宽度，获取自适应单位
+    this.setData({
+      resultImgSrc: ''
+    });
     wx.getSystemInfo({
       success: res => {
         this.setData({
@@ -27,16 +34,14 @@ Page({
       },
     });
 
-    this.setData({
-      img: options.img
-    });
+
     wx.showLoading({
       title: '检测中'
     });
 
     upload({
       url: 'img',
-      filePath: options.img,
+      filePath: this.data.originImgSrc,
       name: 'file',
       success: coor => {
         wx.hideLoading();
@@ -45,24 +50,22 @@ Page({
           coordinate: coor
         });
         wx.getImageInfo({
-          src: options.img,
+          src: this.data.originImgSrc,
           complete: res2 => {
-            console.log(res2);
+            // console.log(res2);
             this.setData({
               basicInfo: {
                 width: res2.width,
                 height: res2.height
               },
-              image: options.img
-
             });
 
-            const ctx = wx.createCanvasContext('myCanvas');        
-            ctx.drawImage(options.img, 0, 0, this.data.basicInfo.width, this.data.basicInfo.height);
+            const ctx = wx.createCanvasContext('myCanvas');
+            ctx.drawImage(this.data.originImgSrc, 0, 0, this.data.basicInfo.width, this.data.basicInfo.height);
             ctx.setStrokeStyle('yellow')
             for (let i = 0; i < this.data.coordinate.length; i++) {
               const [x, y, width, height] = this.data.coordinate[i];
-             ctx.strokeRect(x, y, width, height);
+              ctx.strokeRect(x, y, width, height);
 
             }
             ctx.draw(true, () => {
@@ -76,16 +79,10 @@ Page({
                 distWidth: 1020,
                 distHeight: 675,
                 canvasId: 'myCanvas',
-                success: (res) => {
-                  console.log(res.tempFilePath)
+                success: res => {
                   this.setData({
-                    rtn: res.tempFilePath,
-                    imgSrc: res.tempFilePath
+                    resultImgSrc: res.tempFilePath
                   });
-                  wx.previewImage({
-                    current: res.tempFilePath, // 当前显示图片的http链接
-                    urls: [res.tempFilePath] // 需要预览的图片http链接列表
-                  })
                 }
               })
             });
@@ -99,51 +96,61 @@ Page({
   },
 
   /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    console.log(options)
+    this.setData({
+      originImgSrc: options.img
+    });
+  },
+
+  /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

@@ -1,3 +1,8 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+      "backgroundTextStyle": "light",
+      "navigationBarBackgroundColor": "#FFF",
+      "navigationBarTitleText": "图片检测",
+      "navigationBarTextStyle": "black",
+      "backgroundColor": "#F5F6F7"
 }

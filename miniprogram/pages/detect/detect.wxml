@@ -1,9 +1,23 @@
 <!--index.wxml-->
 <view class="container">
-
-
-  <canvas canvas-id="myCanvas" id="myCanvas" style = "width:{{basicInfo.width}}px;height:{{basicInfo.height}}px" disable-scroll="true" />
-
-  <image style = "width:1020px; height: 675px" src="{{imgSrc}}" mode="cover"></image>
-
+  <view class="image-container">
+    <image src="{{resultImgSrc || originImgSrc}}" bindtap="previewImg"/>
   </view>
+
+  <view class="result-container">
+    <!-- <view>数量： {{detectResult}}</view> -->
+    <view>数量： {{coordinate.length}}</view>
+    <view class="operate-field">
+      <button type="primary" size="mini" bindtap="save">保存</button>
+      <button type="primary" size="mini" bindtap="detect">检测</button>
+    </view>
+
+     <canvas canvas-id="myCanvas" id="myCanvas" style="width:{{basicInfo.width}}px;height:{{basicInfo.height}}px;" disable-scroll="true" />
+  </view>
+
+ 
+
+  <!-- <image style = "width:1020px; height: 675px" src="{{imgSrc}}" mode="cover"></image> -->
+
+</view>
+
