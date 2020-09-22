@@ -1,7 +1,11 @@
 <!--index.wxml-->
 <view class="container">
   <view class="image-container">
-    <image src="{{resultImgSrc || originImgSrc}}" bindtap="previewImg"/>
+    <image
+    src="{{resultImgSrc || originImgSrc}}"
+    bindtap="previewImg"
+    mode="widthFix"
+    />
   </view>
 
   <view class="result-container">
@@ -11,13 +15,12 @@
       <button type="primary" size="mini" bindtap="save">保存</button>
       <button type="primary" size="mini" bindtap="detect">检测</button>
     </view>
-
-     <canvas canvas-id="myCanvas" id="myCanvas" style="width:{{basicInfo.width}}px;height:{{basicInfo.height}}px;" disable-scroll="true" />
   </view>
 
- 
-
-  <!-- <image style = "width:1020px; height: 675px" src="{{imgSrc}}" mode="cover"></image> -->
+<!-- 画布， 用于绘制成功后转成图片，不在页面上显示-->
+  <view style="position: relative">
+     <canvas canvas-id="myCanvas" id="myCanvas" style="width:{{basicInfo.width}}px;height:{{basicInfo.height}}px;" disable-scroll="true" />
+  </view>
 
 </view>
 

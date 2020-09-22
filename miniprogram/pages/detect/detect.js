@@ -22,18 +22,9 @@ Page({
   },
 
   detect: function() {
-    //获取屏幕宽度，获取自适应单位
     this.setData({
       resultImgSrc: ''
     });
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({
-          windowWidth: res.windowWidth
-        });
-      },
-    });
-
 
     wx.showLoading({
       title: '检测中'
@@ -52,7 +43,6 @@ Page({
         wx.getImageInfo({
           src: this.data.originImgSrc,
           complete: res2 => {
-            // console.log(res2);
             this.setData({
               basicInfo: {
                 width: res2.width,
@@ -74,10 +64,6 @@ Page({
                 y: 0,
                 width: this.data.basicInfo.width,
                 height: this.data.basicInfo.height,
-                // destWidth: this.data.windowWidth,
-                // destHeight: this.data.windowWidth,
-                distWidth: 1020,
-                distHeight: 675,
                 canvasId: 'myCanvas',
                 success: res => {
                   this.setData({
@@ -99,7 +85,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options)
     this.setData({
       originImgSrc: options.img
     });

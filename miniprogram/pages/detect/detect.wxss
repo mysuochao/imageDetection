@@ -16,6 +16,11 @@
   margin: 20px;
   display: flex;
   align-items: center;
+  width: calc(100vw - 40px);
+}
+
+.image-container image {
+  width: 100%;
 }
 
 .result-container {
