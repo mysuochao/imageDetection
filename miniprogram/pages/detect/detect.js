@@ -21,9 +21,18 @@ Page({
     })
   },
 
+  formatCoor: function(coor) {
+    const { originWidth, originHeight, width, height} = this.data.basicInfo;
+    const ratioWidth = originWidth / width;
+    const ratioHeight = originHeight / height;
+    const [x, y, w, h] = coor;
+    return [x / ratioWidth, y / ratioHeight, w / ratioWidth, h / ratioHeight];
+  },
+
   detect: function() {
     this.setData({
-      resultImgSrc: ''
+      resultImgSrc: '',
+      coordinate: [],
     });
 
     wx.showLoading({
@@ -35,48 +44,33 @@ Page({
       filePath: this.data.originImgSrc,
       name: 'file',
       success: coor => {
-        wx.hideLoading();
-        // console.log(res, typeof(res));
         this.setData({
           coordinate: coor
         });
-        wx.getImageInfo({
-          src: this.data.originImgSrc,
-          complete: res2 => {
-            this.setData({
-              basicInfo: {
-                width: res2.width,
-                height: res2.height
-              },
-            });
+        const ctx = wx.createCanvasContext('myCanvas');
+        ctx.drawImage(this.data.originImgSrc, 0, 0, this.data.basicInfo.width, this.data.basicInfo.height);
 
-            const ctx = wx.createCanvasContext('myCanvas');
-            ctx.drawImage(this.data.originImgSrc, 0, 0, this.data.basicInfo.width, this.data.basicInfo.height);
-            ctx.setStrokeStyle('yellow')
-            for (let i = 0; i < this.data.coordinate.length; i++) {
-              const [x, y, width, height] = this.data.coordinate[i];
-              ctx.strokeRect(x, y, width, height);
+        ctx.setStrokeStyle('yellow')
+        for (let i = 0; i < this.data.coordinate.length; i++) {
+          const [x, y, width, height] = this.formatCoor(this.data.coordinate[i]);
+          ctx.strokeRect(x, y, width, height);
 
+        }
+        ctx.draw(true, () => {
+          wx.canvasToTempFilePath({
+            x: 0,
+            y: 0,
+            width: this.data.basicInfo.width,
+            height: this.data.basicInfo.height,
+            canvasId: 'myCanvas',
+            success: res => {
+              this.setData({
+                resultImgSrc: res.tempFilePath
+              });
+              wx.hideLoading();
             }
-            ctx.draw(true, () => {
-              wx.canvasToTempFilePath({
-                x: 0,
-                y: 0,
-                width: this.data.basicInfo.width,
-                height: this.data.basicInfo.height,
-                canvasId: 'myCanvas',
-                success: res => {
-                  this.setData({
-                    resultImgSrc: res.tempFilePath
-                  });
-                }
-              })
-            });
-          }
+          })
         });
-      },
-      fail: err => {
-        wx.hideLoading();
       }
     })
   },
@@ -87,6 +81,22 @@ Page({
   onLoad: function(options) {
     this.setData({
       originImgSrc: options.img
+    });
+
+    const res = wx.getSystemInfoSync()
+
+    wx.getImageInfo({
+      src: this.data.originImgSrc,
+      complete: res2 => {
+        this.setData({
+          basicInfo: {
+            originWidth: res2.width,
+            originHeight: res2.height,
+            width: res.windowWidth,
+            height: res.windowWidth / (res2.width / res2.height)
+          }
+        });
+      }
     });
   },
 
