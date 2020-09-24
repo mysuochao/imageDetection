@@ -1,26 +1,25 @@
 <!--index.wxml-->
 <view class="container">
   <view class="image-container">
-    <image
-    src="{{resultImgSrc || originImgSrc}}"
-    bindtap="previewImg"
-    mode="widthFix"
-    />
+    <image src="{{resultImgSrc || originImgSrc}}" bindtap="previewImg" mode="widthFix" />
   </view>
 
   <view class="result-container">
     <!-- <view>数量： {{detectResult}}</view> -->
-    <view>数量： {{coordinate.length}}</view>
+    <view>
+      <view>检测数量： {{coordinate.length}}</view>
+    </view>
+
     <view class="operate-field">
+      <button type="primary" size="mini" bindtap="change" disabled="{{isDetecting}}">切换图片</button>
       <button type="primary" size="mini" bindtap="save">保存</button>
-      <button type="primary" size="mini" bindtap="detect">检测</button>
+      <button type="primary" size="mini" bindtap="detect" disabled="{{isDetecting}}">检测{{isDetecting ? '中' : ''}}</button>
     </view>
   </view>
 
-<!-- 画布， 用于绘制成功后转成图片，不在页面上显示-->
+  <!-- 画布， 用于绘制成功后转成图片，不在页面上显示-->
   <view style="position: relative">
-     <canvas canvas-id="myCanvas" id="myCanvas" style="width:{{basicInfo.width}}px;height:{{basicInfo.height}}px;" disable-scroll="true" />
+    <canvas canvas-id="myCanvas" id="myCanvas" style="width:{{basicInfo.width}}px;height:{{basicInfo.height}}px;" disable-scroll="true" />
   </view>
 
 </view>
-

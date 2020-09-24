@@ -6,10 +6,7 @@
   align-items: center;
   justify-content: space-around;
 }
-image:nth-child(1) {
-  flex-basis: 30vw;
-}
-
+image:nth-child(1),
 image:nth-child(2) {
   flex-basis: 30vw;
 }

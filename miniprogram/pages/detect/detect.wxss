@@ -16,6 +16,7 @@
   margin: 20px;
   display: flex;
   align-items: center;
+  overflow: auto;
   width: calc(100vw - 40px);
 }
 

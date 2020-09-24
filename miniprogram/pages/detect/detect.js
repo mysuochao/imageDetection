@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    coordinate: []
+    coordinate: [],
+    isDetecting: false
   },
 
   previewImg: function() {
@@ -29,10 +30,24 @@ Page({
     return [x / ratioWidth, y / ratioHeight, w / ratioWidth, h / ratioHeight];
   },
 
+  change: function() {
+    chooseImg({
+      sourceType: ['camera', 'album'],
+      success: templatePaths => {
+        this.setData({
+          resultImgSrc: '',
+          coordinate: []
+        });
+        this.init(templatePaths[0]);
+      }
+    })
+  },
+
   detect: function() {
     this.setData({
       resultImgSrc: '',
       coordinate: [],
+      isDetecting: true
     });
 
     wx.showLoading({
@@ -65,12 +80,19 @@ Page({
             canvasId: 'myCanvas',
             success: res => {
               this.setData({
-                resultImgSrc: res.tempFilePath
+                resultImgSrc: res.tempFilePath,
+                isDetecting: false
               });
               wx.hideLoading();
             }
           })
         });
+      },
+      fail: () => {
+        this.setData({
+          isDetecting: false
+        });
+        wx.hideLoading();
       }
     })
   },
@@ -78,13 +100,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  init: function(img) {
     this.setData({
-      originImgSrc: options.img
+      originImgSrc: img
     });
-
     const res = wx.getSystemInfoSync()
-
     wx.getImageInfo({
       src: this.data.originImgSrc,
       complete: res2 => {
@@ -98,6 +118,10 @@ Page({
         });
       }
     });
+  },
+
+  onLoad: function(options) {
+    this.init(options.img);
   },
 
   /**
