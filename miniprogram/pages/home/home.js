@@ -11,7 +11,6 @@ Page({
   },
 
   onClick: function (e) {
-    console.log(e.target.dataset);
     chooseImg({
       sourceType: [e.target.dataset.type],
       success: templatePaths => {
@@ -26,7 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('load');
+    
   },
 
   /**

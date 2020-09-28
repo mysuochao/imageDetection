@@ -14,6 +14,7 @@ Page({
     isDetecting: false
   },
 
+  // 点击图片进行预览
   previewImg: function() {
     const src = this.data.resultImgSrc || this.data.originImgSrc
     wx.previewImage({
@@ -22,6 +23,7 @@ Page({
     })
   },
 
+  // 根据图片原图和canvas 缩放比例重新计算矩形坐标
   formatCoor: function(coor) {
     const { originWidth, originHeight, width, height} = this.data.basicInfo;
     const ratioWidth = originWidth / width;
@@ -30,6 +32,7 @@ Page({
     return [x / ratioWidth, y / ratioHeight, w / ratioWidth, h / ratioHeight];
   },
 
+  // 切换图片点击事件
   change: function() {
     chooseImg({
       sourceType: ['camera', 'album'],
@@ -43,6 +46,7 @@ Page({
     })
   },
 
+  // 检测按钮点击事件
   detect: function() {
     this.setData({
       resultImgSrc: '',
@@ -62,6 +66,7 @@ Page({
         this.setData({
           coordinate: coor
         });
+        // canvas image and rect 形状
         const ctx = wx.createCanvasContext('myCanvas');
         ctx.drawImage(this.data.originImgSrc, 0, 0, this.data.basicInfo.width, this.data.basicInfo.height);
 
@@ -71,6 +76,7 @@ Page({
           ctx.strokeRect(x, y, width, height);
 
         }
+        // draw canvas
         ctx.draw(true, () => {
           wx.canvasToTempFilePath({
             x: 0,
@@ -97,9 +103,7 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  // home 页初始化状态
   init: function(img) {
     this.setData({
       originImgSrc: img
@@ -119,6 +123,10 @@ Page({
       }
     });
   },
+
+   /**
+   * 生命周期函数--监听页面加载
+   */
 
   onLoad: function(options) {
     this.init(options.img);
