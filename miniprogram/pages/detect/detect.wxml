@@ -12,7 +12,7 @@
 
     <view class="operate-field">
       <button type="primary" size="mini" bindtap="change" disabled="{{isDetecting}}">切换图片</button>
-      <button type="primary" size="mini" bindtap="save">保存</button>
+      <button type="primary" size="mini" bindtap="save"  disabled="{{isDetecting}}">保存</button>
       <button type="primary" size="mini" bindtap="detect" disabled="{{isDetecting}}">检测{{isDetecting ? '中' : ''}}</button>
     </view>
   </view>
